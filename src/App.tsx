@@ -1,6 +1,7 @@
 import { useState } from "react";
-import Todos from "./Todos";
-import AddTodos from "./AddTodos";
+import Todos from "./components/Todos";
+import AddTodos from "./components/AddTodos";
+import ManageTodos from "./components/ManageTodos";
 import DayIcon from "./assets/brightness-and-contrast.png";
 import NightIcon from "./assets/moon.png";
 
@@ -14,12 +15,12 @@ const initialTodos = [
   {
     id: 1,
     name: "Eat breakfast",
-    isCompleted: false,
+    isCompleted: true,
   },
   {
     id: 2,
     name: "Get to work",
-    isCompleted: true,
+    isCompleted: false,
   },
 ];
 
@@ -34,6 +35,8 @@ function App() {
 
   const [emptyPrompt, setEmptyPrompt] = useState<boolean>(false);
 
+  const [toManage, setToManage] = useState<string>("");
+
   // Add Todo Dialog states
   const [isOpen, setOpen] = useState<boolean>(false);
 
@@ -45,14 +48,27 @@ function App() {
     setOpen(false);
   };
 
-  //
+  // Manage Todo Dialog states
+  const [isManaged, setManaged] = useState(false);
+
+  const openManage = () => {
+    setManaged(true);
+  };
+
+  const closeManage = () => {
+    setManaged(false);
+  };
+
   const handleNightMode = () => {
     setNightmode((prev) => !prev);
   };
 
   const handleRemove = (index: number) => {
-    const filteredTodo = todos.filter((todo) => todo.id !== index);
-    setTodos(filteredTodo);
+    // const filteredTodo = todos.filter((todo) => todo.id !== index);
+    // setTodos(filteredTodo);
+    const todoName: TodosTypes[] = todos.filter((todo) => todo.id === index);
+    setToManage(todoName[0].name);
+    openManage();
   };
 
   const changeHandler = (value: any) => {
@@ -64,7 +80,7 @@ function App() {
       setEmptyPrompt(true);
       setTimeout(() => {
         setEmptyPrompt(false);
-      }, 3500);
+      }, 2500);
     } else {
       setTodos((prev) => [
         ...prev,
@@ -124,7 +140,7 @@ function App() {
             <p className="text-slate-500 flex-none">{`${todos.length} ${
               todos.length !== 1 ? "items" : "item"
             }`}</p>
-            <ul className="flex flex justify-center gap-3 w-full">
+            <ul className="flex  justify-center gap-3 w-full">
               {["All", "Active", "Completed"].map((value, index) => (
                 <p
                   onClick={() => setActiveTab(index)}
@@ -147,6 +163,12 @@ function App() {
         closeModal={closeModal}
         openModal={openModal}
         emptyPrompt={emptyPrompt}
+      />
+      <ManageTodos
+        isManaged={isManaged}
+        closeManage={closeManage}
+        openManage={openManage}
+        todoTitle={toManage}
       />
     </>
   );

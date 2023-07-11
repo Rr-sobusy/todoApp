@@ -1,21 +1,19 @@
 import React from "react";
-import CloseIcon from './assets/close.png'
-import { TodosTypes } from "./App";
-import {AiOutlineCheck} from 'react-icons/ai'
+import CloseIcon from "../assets/close.png";
+import { TodosTypes } from "../App";
+import { AiOutlineCheck } from "react-icons/ai";
 
 type TodosProps = {
   todos: TodosTypes[];
-  isNight?: boolean; 
-  removeHandler?: any
+  isNight?: boolean;
+  removeHandler?: any;
 };
-
-
 
 const Todos: React.FC<TodosProps> = (props) => {
   const { todos, removeHandler } = props;
   return (
     <div className="mt-3">
-      {todos.map((value): any => {
+      {todos.map((value) => {
         const rex = value.name;
         return (
           <div
