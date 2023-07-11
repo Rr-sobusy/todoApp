@@ -8,11 +8,12 @@ type AddTodosProps = {
   submitHandler: () => void;
   changeHandler: ChangeEventHandler<HTMLInputElement>;
   emptyPrompt: boolean;
+  value :string
 };
 
 const AddTodos: React.FC<AddTodosProps> = (props) => {
   // Props in opening and closing the modal
-  const { isOpen, closeModal, submitHandler, changeHandler, emptyPrompt } =
+  const { isOpen, closeModal, submitHandler, changeHandler, emptyPrompt, value } =
     props;
 
   return (
@@ -52,6 +53,7 @@ const AddTodos: React.FC<AddTodosProps> = (props) => {
                   <div className="mt-4">
                     <div className="mb-6">
                       <input
+                        value={value}
                         onChange={(event) => changeHandler(event)}
                         placeholder="Enter To-do"
                         type="text"

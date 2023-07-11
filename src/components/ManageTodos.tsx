@@ -6,10 +6,11 @@ export type ManageTodosType = {
   closeManage: () => void;
   openManage: () => void;
   isManaged: boolean;
+  todoId: number;
 };
 
 const ManageTodos: FC<ManageTodosType> = (props) => {
-  const { todoTitle, isManaged, openManage, closeManage } = props;
+  const { todoTitle, todoId, isManaged, openManage, closeManage } = props;
 
   return (
     <>
@@ -54,7 +55,7 @@ const ManageTodos: FC<ManageTodosType> = (props) => {
                   </div>
 
                   <div className="mt-4 flex gap-2 justify-center md:justify-between">
-                    <button className="px-6 py-2 text-black border-[1px] hover:bg-[#F3F4F6] border-black font-semibold rounded-lg">
+                    <button  className="px-6 py-2 text-black border-[1px] font-semibold hover:bg-[#F3F4F6] border-black rounded-lg">
                       Remove to list
                     </button>
                     <button className="px-6 py-2 bg-[#000000] hover:bg-[#2F2F31] text-white font-semibold rounded-lg">

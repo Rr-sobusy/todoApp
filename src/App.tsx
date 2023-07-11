@@ -35,7 +35,10 @@ function App() {
 
   const [emptyPrompt, setEmptyPrompt] = useState<boolean>(false);
 
-  const [toManage, setToManage] = useState<string>("");
+  const [toManage, setToManage] = useState<{name:string, id: number}>({
+    name: "",
+    id: 0,
+  });
 
   // Add Todo Dialog states
   const [isOpen, setOpen] = useState<boolean>(false);
@@ -63,11 +66,9 @@ function App() {
     setNightmode((prev) => !prev);
   };
 
-  const handleRemove = (index: number) => {
-    // const filteredTodo = todos.filter((todo) => todo.id !== index);
-    // setTodos(filteredTodo);
+  const handleManage = (index: number) => {
     const todoName: TodosTypes[] = todos.filter((todo) => todo.id === index);
-    setToManage(todoName[0].name);
+    setToManage({name:todoName[0].name, id: todoName[0].id});
     openManage();
   };
 
@@ -127,7 +128,7 @@ function App() {
             } rounded-lg h-[440px] -mt-[2.5rem] xl:-mt-[6rem] w-[auto] overflow-auto`}
           >
             <Todos
-              removeHandler={handleRemove}
+              manageHandler={handleManage}
               isNight={isNightMode}
               todos={todos}
             />
@@ -157,6 +158,7 @@ function App() {
         </div>
       </div>
       <AddTodos
+        value={text}
         changeHandler={changeHandler}
         submitHandler={submitHandler}
         isOpen={isOpen}
@@ -168,7 +170,8 @@ function App() {
         isManaged={isManaged}
         closeManage={closeManage}
         openManage={openManage}
-        todoTitle={toManage}
+        todoTitle={toManage.name}
+        todoId={toManage.id}
       />
     </>
   );

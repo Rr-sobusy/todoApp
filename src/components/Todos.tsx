@@ -6,11 +6,11 @@ import { AiOutlineCheck } from "react-icons/ai";
 type TodosProps = {
   todos: TodosTypes[];
   isNight?: boolean;
-  removeHandler?: any;
+  manageHandler?: any;
 };
 
 const Todos: React.FC<TodosProps> = (props) => {
-  const { todos, removeHandler } = props;
+  const { todos, manageHandler } = props;
   return (
     <div className="mt-3">
       {todos.map((value) => {
@@ -33,7 +33,7 @@ const Todos: React.FC<TodosProps> = (props) => {
               {rex}
             </h2>
             <img
-              onClick={() => removeHandler(value.id)}
+              onClick={() => manageHandler(value.id)}
               className="w-4 h-4 flex-2 mr-2 cursor-pointer"
               src={CloseIcon}
               alt=""
