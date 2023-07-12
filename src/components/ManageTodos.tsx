@@ -1,5 +1,5 @@
 import { Dialog, Transition } from "@headlessui/react";
-import React, { Fragment, useState, FC } from "react";
+import { Fragment, FC } from "react";
 
 export type ManageTodosType = {
   todoTitle: string;
@@ -17,7 +17,6 @@ const ManageTodos: FC<ManageTodosType> = (props) => {
     todoTitle,
     todoId,
     isManaged,
-    openManage,
     closeManage,
     updateHandler,
     deleteHandler,
@@ -56,7 +55,7 @@ const ManageTodos: FC<ManageTodosType> = (props) => {
                     as="h3"
                     className="text-lg font-medium leading-6 text-gray-900"
                   >
-                    Manage Todo {todoId}
+                    Manage Todo
                   </Dialog.Title>
                   <div className="mt-6 block">
                     <input

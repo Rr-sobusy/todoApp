@@ -79,8 +79,8 @@ function App() {
   };
 
   // Manage Todos
-  const updateHandler = (value: string, id: number) => {
-    const todoFilter = todos.filter((todo) => todo.id === id);
+  const updateHandler = () => {
+   
   };
 
   // Manage todos

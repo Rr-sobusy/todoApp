@@ -60,7 +60,7 @@ const AddTodos: React.FC<AddTodosProps> = (props) => {
                         id="large-input"
                         className={`block w-full ${
                           emptyPrompt ? "border-red-500" : null
-                        } border-2 p-4 text-gray-900 border outline-none focus:border-[3px] rounded-lg focus:border-slate-400`}
+                        } border-2 p-4 text-gray-900 outline-none focus:border-[3px] rounded-lg focus:border-slate-400`}
                       />
                       <p
                         className={`text-red-500 duration-500 mt-1 mx-2 ${
