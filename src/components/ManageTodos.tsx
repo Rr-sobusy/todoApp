@@ -1,5 +1,5 @@
 import { Dialog, Transition } from "@headlessui/react";
-import { Fragment, useState, FC } from "react";
+import React, { Fragment, useState, FC } from "react";
 
 export type ManageTodosType = {
   todoTitle: string;
@@ -7,10 +7,22 @@ export type ManageTodosType = {
   openManage: () => void;
   isManaged: boolean;
   todoId: number;
+  updateHandler: any;
+  deleteHandler: (id: number) => void;
+  setCompletedHandler: (id: number) => void;
 };
 
 const ManageTodos: FC<ManageTodosType> = (props) => {
-  const { todoTitle, todoId, isManaged, openManage, closeManage } = props;
+  const {
+    todoTitle,
+    todoId,
+    isManaged,
+    openManage,
+    closeManage,
+    updateHandler,
+    deleteHandler,
+    setCompletedHandler,
+  } = props;
 
   return (
     <>
@@ -44,21 +56,28 @@ const ManageTodos: FC<ManageTodosType> = (props) => {
                     as="h3"
                     className="text-lg font-medium leading-6 text-gray-900"
                   >
-                    Manage Todo
+                    Manage Todo {todoId}
                   </Dialog.Title>
                   <div className="mt-6 block">
                     <input
+                      onChange={(e) => updateHandler(e.target.value, todoId)}
                       value={todoTitle}
                       type="text"
-                      className="border-2 p-4 w-full text-gray-900 border outline-none focus:border-[3px] rounded-lg focus:border-slate-400"
+                      className=" p-4 w-full text-gray-900 border outline-none focus:border-[3px] rounded-lg focus:border-slate-400"
                     />
                   </div>
 
                   <div className="mt-4 flex gap-2 justify-center md:justify-between">
-                    <button  className="px-6 py-2 text-black border-[1px] font-semibold hover:bg-[#F3F4F6] border-black rounded-lg">
-                      Remove to list
+                    <button
+                      onClick={() => deleteHandler(todoId)}
+                      className="px-6 py-2 text-black border-[1px] font-semibold hover:bg-[#F3F4F6] border-black rounded-lg"
+                    >
+                      Remove from list
                     </button>
-                    <button className="px-6 py-2 bg-[#000000] hover:bg-[#2F2F31] text-white font-semibold rounded-lg">
+                    <button
+                      onClick={() => setCompletedHandler(todoId)}
+                      className="px-6 py-2 bg-[#000000] hover:bg-[#2F2F31] text-white font-semibold rounded-lg"
+                    >
                       Mark as Completed
                     </button>
                   </div>

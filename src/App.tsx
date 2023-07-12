@@ -35,10 +35,12 @@ function App() {
 
   const [emptyPrompt, setEmptyPrompt] = useState<boolean>(false);
 
-  const [toManage, setToManage] = useState<{name:string, id: number}>({
+  const [toManage, setToManage] = useState<{ name: string; id: number }>({
     name: "",
     id: 0,
   });
+
+  const [filter, setFilter] = useState<string>("");
 
   // Add Todo Dialog states
   const [isOpen, setOpen] = useState<boolean>(false);
@@ -68,12 +70,35 @@ function App() {
 
   const handleManage = (index: number) => {
     const todoName: TodosTypes[] = todos.filter((todo) => todo.id === index);
-    setToManage({name:todoName[0].name, id: todoName[0].id});
+    setToManage({ name: todoName[0].name, id: todoName[0].id });
     openManage();
   };
 
   const changeHandler = (value: any) => {
     setText(value.target.value);
+  };
+
+  // Manage Todos
+  const updateHandler = (value: string, id: number) => {
+    const todoFilter = todos.filter((todo) => todo.id === id);
+  };
+
+  // Manage todos
+  const deleteHandler = (todoId: number) => {
+    const newTodos = todos.filter((todo) => todo.id !== todoId);
+    setTodos(newTodos);
+    closeManage();
+  };
+
+  // Manage todos
+  const setCompletedHandler = (todoId: number) => {
+    let arr = [...todos];
+    const key = arr.findIndex((todos) => todos.id === todoId);
+    const toUpdate = arr[key];
+    toUpdate.isCompleted = true;
+    arr[key] = toUpdate;
+    setTodos(arr);
+    closeManage();
   };
 
   const submitHandler = () => {
@@ -95,6 +120,7 @@ function App() {
       setText("");
     }
   };
+
   return (
     <>
       <div
@@ -128,6 +154,7 @@ function App() {
             } rounded-lg h-[440px] -mt-[2.5rem] xl:-mt-[6rem] w-[auto] overflow-auto`}
           >
             <Todos
+              todoStatus={filter}
               manageHandler={handleManage}
               isNight={isNightMode}
               todos={todos}
@@ -144,7 +171,10 @@ function App() {
             <ul className="flex  justify-center gap-3 w-full">
               {["All", "Active", "Completed"].map((value, index) => (
                 <p
-                  onClick={() => setActiveTab(index)}
+                  onClick={() => {
+                    setActiveTab(index);
+                    setFilter(value);
+                  }}
                   key={index}
                   className={`${
                     activeTab === index ? "text-blue-500" : "text-slate-500"
@@ -167,6 +197,9 @@ function App() {
         emptyPrompt={emptyPrompt}
       />
       <ManageTodos
+        setCompletedHandler={setCompletedHandler}
+        deleteHandler={deleteHandler}
+        updateHandler={updateHandler}
         isManaged={isManaged}
         closeManage={closeManage}
         openManage={openManage}
